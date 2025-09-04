@@ -1,0 +1,21 @@
+{
+    "id": "activity-audit-addon",
+    "name": "Activity-Audit addon",
+    "author": "RWS",
+    "description": "Activity Audit addon for tridion sites",
+    "manifestVersion": "1.0.0",
+    "requireConfiguration": "yes",
+    "version": "1.0.0",
+    "extensions": [
+        {
+            "name": "activity-audit-extension",
+            "type": "ExperienceSpaceExtension",
+            "properties": {
+                "main": "dist\\activity-audit-extension\\main.js",
+                "files": [
+                    "dist\\activity-audit-extension\\main.js"
+                ]
+            }
+        }
+    ]
+}
