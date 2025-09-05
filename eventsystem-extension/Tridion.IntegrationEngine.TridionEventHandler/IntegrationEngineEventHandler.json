@@ -1,0 +1,8 @@
+{
+  "configuration": {
+    "IntegrationEngineEventHandler": {
+      "integrationEngineUrl": "https://os.tridiondemo.com:9200",
+      "indexName": "metrics"
+    }
+  }
+}
