@@ -1,62 +1,39 @@
-# RWS Tridion Sites Audit Extension
-
-## Overview
-
-The **RWS Tridion Sites Audit Extension** provides a comprehensive audit dashboard to track and visualize key activities performed in the CMS. It helps administrators, auditors, and business users gain insights into system usage and content operations.
-
-## Features
-
-- 📊 Interactive Dashboard – View content activity at a glance with graphical reports.
-- Seamless integration with [RWS](https://www.rws.com) Tridion Sites.
-- 🟢 PIE Charts & Bar Charts for:
-  - Components
-  - Pages
-  - Categories
-  - Structure Groups
-- 🔄 Activity Tracking – Monitor key lifecycle actions:
-  - Create
-  - Update
-  - Delete
-  - Publish
-  - Unpublish
-- Audit Reports – Exportable insights for compliance and performance tracking.
-- 🔍 Better Visibility – Identify trends, high-activity areas, and content usage patterns.
-- Easy to deploy and maintain.
-
-## Backend Extension
-
+# RWS Tridion Sites Activity Audit Extension
 
 ### Requirements
 
-- **Visual Studio 2019**
-- **.NET 4.8 Framework**
-- Access to **[RWS](https://www.rws.com) Tridion Sites environment 10.1**
+- **Nodejs Latest**
+- Access to **[RWS](https://www.rws.com) Tridion Sites 10.1 environment**
 - OpenSearch 2.18.0 or Above 
+- Setup **[Backend Extension](https://github.com/RWS-Open/tridion-sites-extension-audit-dashboard?tab=readme-ov-file#backend-extension)**
 
 
-### Build Instructions
+### Installation
 
-1. Open the solution in **Visual Studio 2022**.
-2. Build the project targeting **.NET 8.0**.
+1. Navigate to Activity Audit(activity-audit-extension) folder
+2. Install Node Modules by running the following command
+   - npm install
+  
 
-### ⚙️ Deployment
+### ⚙️ Configuration
 
-1. Download the Backend extension from [releases](https://github.com/RWS-Open/tridion-sites-extension-audit-dashboard/releases) page.
+1. Update the package.json file to update the Target server url as below
+    - target = https://domain.com (Tridion Sites CM URL)
 
-2. Unzip the activity-audit-addon-1.0.0-backend.zip.
+    ```json
+
+         "dev": "webpack serve --config ./webpack.dev.config.js --progress --env target=https://domain.com manifest=../manifest.json config=../activity-audit-addon.config.json",
+
+    ```
+
+2. Login to Access Management -> Applications Tab
    
-3. Update the integrationEngineUrl(Opensearch URL) and indexName in IntegrationEngineEventHandler.json file
-   
-4. Navigate to Addons service using the following URL:
-   
-    https://domain.com:83/addon/ui
-    
-5. Upload the following files to the Addon service: 
-    
-    - IntegrationEngineEventHandler.zip
-    - IntegrationEngineEventHandler.json
-   
-6. Navigate to your OpenSearch installation path (e.g., C:\..\opensearch-2.18.0\config) and edit the opensearch.yml file to allow CORS:
+   - Navigate to Tridion Sites Experience Space details 
+   - Click on Edit button to enter the Allowed redirect URLs as below
+       - https://localhost:3000/ui/signin-oidc
+   - Click Save
+  
+3. Navigate to your OpenSearch installation path (e.g., C:\..\opensearch-2.18.0\config) and edit the opensearch.yml file to allow CORS:
    
         http.cors.allow-origin: https://domain.com (Tridion Sites CM Url)
         http.cors.enabled: true
@@ -65,59 +42,15 @@ The **RWS Tridion Sites Audit Extension** provides a comprehensive audit dashboa
         http.cors.allow-credentials: true
         plugins.security.ssl.http.clientauth_mode: NONE
 
-7. Restart the OpenSearch 2.18.0 service (opensearch-service-x64).
-       
-
-## Frontend Extension
+4. Restart the OpenSearch 2.18.0 service (opensearch-service-x64).
 
 
-### Requirements
+### Run
 
-- **Nodejs Latest**
+1. Navigate to activity-audit-extension folder
 
-
-### Installation
-
-1) Navigate to Activity Audit(activity-audit-extension) folder
-2) Install Node Modules by running the following command
+2. Run the below command in command prompt to install the node dependency modules.
    - npm install
-  
-
-### ⚙️ Configuration
-
-1) Update the package.json file to update the Target server url as below
-    - target = https://domain.com (Tridion Sites CM URL)
-
-    ```json
-
-        "dev": "webpack serve --config ./webpack.dev.config.js --progress --env target=https://domain.com manifest=../manifest.json config=../clone-publication.config",
-
-    ```
-
-2) Login to Access Management -> Applications Tab
-   
-   - Click on Edit button to enter the Allowed redirect URLs as below
-       - https://localhost:3010/.../signin-oidc
-       - https://localhost:3010/.../signout-callback-oidc
-   - Click Save
-
-
-### Run Locally
-
-1) Navigate to activity-audit-extension folder
-2) Run the below command in command prompt to install the node dependency modules.
-   - npm install
-3) Run the command npm run dev to run the extension locally
-   - npm run dev
-4) Extension can be accessed using the below URL
-    https://localhost:3010/ISHCS/OrganizeSpace
-    
-
-### ⚙️ Deployment
-
-1. Download the Frontend extension from [releases](https://github.com/RWS-Open/tridion-sites-extension-audit-dashboard/releases) page.
-   
-2. Unzip the activity-audit-addon-1.0.0-frontend.zip 
    
 3. Update the activity-audit-addon.config.json file 
    
@@ -134,13 +67,27 @@ The **RWS Tridion Sites Audit Extension** provides a comprehensive audit dashboa
     }
 
    ```
-   - OPENSEARCH_INDEX_NAME should match the value used in the Backend Extension configuration.
+   
+3. Run the below command to run the extension locally
+   - npm run dev
+   
+4. Extension can be accessed using the below URL
+    https://localhost:3000/ui
+    
 
-4. Navigate to Addons service using the following URL:
+### ⚙️ Build and Deployment
+
+1. Run the below command to generate and create the addon-package
+	- npm run build
+	- npm run pack
+	
+2. Once the addon-package is generated it will be available in root folder (\activity-audit\activity-audit-addon-1.0.0.zip)   
+    
+3. Navigate to Addons service using the following URL:
    
     https://domain.com:83/addon/ui
 
-5. Upload the following files to the Addon service: 
+4. Upload the following files to the Addon service: 
     
     activity-audit-addon-1.0.0.zip
     activity-audit-addon.config.json
