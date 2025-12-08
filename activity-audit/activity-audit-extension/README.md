@@ -1,75 +1,4 @@
-# RWS Tridion Sites Audit Extension
-
-## Overview
-
-The **RWS Tridion Sites Audit Extension** provides a comprehensive audit dashboard to track and visualize key activities performed in the CMS. It helps administrators, auditors, and business users gain insights into system usage and content operations.
-
-## Features
-
-- 📊 Interactive Dashboard – View content activity at a glance with graphical reports.
-- Seamless integration with [RWS](https://www.rws.com) Tridion Sites.
-- 🟢 PIE Charts & Bar Charts for:
-  - Components
-  - Pages
-  - Categories
-  - Structure Groups
-- 🔄 Activity Tracking – Monitor key lifecycle actions:
-  - Create
-  - Update
-  - Delete
-  - Publish
-  - Unpublish
-- Audit Reports – Exportable insights for compliance and performance tracking.
-- 🔍 Better Visibility – Identify trends, high-activity areas, and content usage patterns.
-- Easy to deploy and maintain.
-
-## Backend Extension
-
-
-### Requirements
-
-- **Visual Studio 2019**
-- **.NET 4.8 Framework**
-- Access to **[RWS](https://www.rws.com) Tridion Sites environment 10.1**
-- OpenSearch 2.18.0 or Above 
-
-
-### Build Instructions
-
-1. Open the solution in **Visual Studio 2022**.
-2. Build the project targeting **.NET 8.0**.
-
-### ⚙️ Deployment
-
-1. Download the Backend extension from [releases](https://github.com/RWS-Open/tridion-sites-extension-audit-dashboard/releases) page.
-
-2. Unzip the activity-audit-addon-1.0.0-backend.zip.
-   
-3. Update the integrationEngineUrl(Opensearch URL) and indexName in IntegrationEngineEventHandler.json file
-   
-4. Navigate to Addons service using the following URL:
-   
-    https://domain.com:83/addon/ui
-    
-5. Upload the following files to the Addon service: 
-    
-    - IntegrationEngineEventHandler.zip
-    - IntegrationEngineEventHandler.json
-   
-6. Navigate to your OpenSearch installation path (e.g., C:\..\opensearch-2.18.0\config) and edit the opensearch.yml file to allow CORS:
-   
-        http.cors.allow-origin: https://domain.com (Tridion Sites CM Url)
-        http.cors.enabled: true
-        http.cors.allow-methods: OPTIONS,HEAD,GET,POST,PUT,DELETE
-        http.cors.allow-headers : X-Search-Client, X-Timestamp, X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
-        http.cors.allow-credentials: true
-        plugins.security.ssl.http.clientauth_mode: NONE
-
-7. Restart the OpenSearch 2.18.0 service (opensearch-service-x64).
-       
-
-## Frontend Extension
-
+# RWS Tridion Sites Activity Audit Extension
 
 ### Requirements
 
@@ -96,13 +25,24 @@ The **RWS Tridion Sites Audit Extension** provides a comprehensive audit dashboa
 
 2) Login to Access Management -> Applications Tab
    
+   - Navigate Tridion Sites Experience Space details 
    - Click on Edit button to enter the Allowed redirect URLs as below
-       - https://localhost:3010/.../signin-oidc
-       - https://localhost:3010/.../signout-callback-oidc
+       - https://localhost:3000/ui/signin-oidc
    - Click Save
+  
+3. Navigate to your OpenSearch installation path (e.g., C:\..\opensearch-2.18.0\config) and edit the opensearch.yml file to allow CORS:
+   
+        http.cors.allow-origin: https://domain.com (Tridion Sites CM Url)
+        http.cors.enabled: true
+        http.cors.allow-methods: OPTIONS,HEAD,GET,POST,PUT,DELETE
+        http.cors.allow-headers : X-Search-Client, X-Timestamp, X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+        http.cors.allow-credentials: true
+        plugins.security.ssl.http.clientauth_mode: NONE
+
+4. Restart the OpenSearch 2.18.0 service (opensearch-service-x64).
 
 
-### Run Locally
+### Run
 
 1) Navigate to activity-audit-extension folder
 2) Run the below command in command prompt to install the node dependency modules.
@@ -110,7 +50,7 @@ The **RWS Tridion Sites Audit Extension** provides a comprehensive audit dashboa
 3) Run the command npm run dev to run the extension locally
    - npm run dev
 4) Extension can be accessed using the below URL
-    https://localhost:3010/ISHCS/OrganizeSpace
+    https://localhost:3000/ui
     
 
 ### ⚙️ Deployment
